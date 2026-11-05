@@ -25,8 +25,11 @@ def ingredient():
     return ingredient
 
 
-def test_init_creates_empty_burger(burger):
+def test_init_creates_burger_without_bun(burger):
     assert burger.bun is None
+
+
+def test_init_creates_burger_without_ingredients(burger):
     assert burger.ingredients == []
 
 
@@ -63,7 +66,6 @@ def test_move_ingredient_changes_order(burger):
     assert burger.ingredients == [second, third, first]
 
 
-
 @pytest.mark.parametrize(
     "bun_price, ingredient_prices, expected_price",
     [
@@ -73,7 +75,8 @@ def test_move_ingredient_changes_order(burger):
     ],
 )
 def test_get_price_returns_correct_price(
-    burger, bun, bun_price, ingredient_prices, expected_price):
+    burger, bun, bun_price, ingredient_prices, expected_price
+):
     bun.get_price.return_value = bun_price
     burger.set_buns(bun)
 
@@ -83,7 +86,6 @@ def test_get_price_returns_correct_price(
         burger.add_ingredient(ingredient)
 
     assert burger.get_price() == expected_price
-
 
 
 def test_get_receipt_returns_formatted_receipt(burger, bun, ingredient):
@@ -99,3 +101,4 @@ def test_get_receipt_returns_formatted_receipt(burger, bun, ingredient):
     )
 
     assert burger.get_receipt() == expected_receipt
+    
